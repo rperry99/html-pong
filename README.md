@@ -10,3 +10,4 @@ This is a project from a free Udemy course by Chris DeLeon [here](https://www.ud
 ## What I added, not part of the tutorial
 
 - Set the background and paddle/ball colors to variables. That way, they can all be changed at once easily
+- Set the ball's width and height to variables so they can be changed later
