@@ -1,7 +1,12 @@
 let canvas, canvasContext;
 let backgroundTheme = "#111111";
 let themeColor = "#bada55";
+
+//Ball Variables
+let ballWidth = 10;
+let ballHeight = 10;
 let ballX = 50;
+let ballSpeedX = 5;
 
 window.onload = () => {
   canvas = document.getElementById("gameCanvas");
@@ -21,7 +26,7 @@ function drawAssets() {
 
   //Ball
   canvasContext.fillStyle = themeColor;
-  canvasContext.fillRect(ballX, 200, 10, 10);
+  canvasContext.fillRect(ballX, 200, ballWidth, ballHeight);
 
   //Left Paddle
   canvasContext.fillStyle = themeColor;
@@ -30,5 +35,8 @@ function drawAssets() {
 
 //Moves the movable pieces to the game
 function moveAssets() {
-  ballX = ballX + 5;
+  ballX = ballX + ballSpeedX;
+  if (ballX >= canvas.width - ballWidth / 2 || ballX <= ballWidth / 2) {
+    ballSpeedX = -ballSpeedX;
+  }
 }
