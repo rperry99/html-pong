@@ -1,6 +1,6 @@
 # html-pong
 
-This is a project from a free Udemy course by Chris DeLeon (here)[https://www.udemy.com/code-your-first-game/learn/lecture/2701700?start=75#questions]
+This is a project from a free Udemy course by Chris DeLeon [here](https://www.udemy.com/code-your-first-game/learn/lecture/2701700?start=75#questions)
 
 ## Note
 
