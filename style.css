@@ -1,0 +1,14 @@
+body {
+  background: black;
+}
+
+.container {
+  width: 804px;
+  margin: 5% auto 0;
+}
+
+canvas {
+  border: solid 2px white;
+  border-radius: 5px;
+  margin: 0 auto;
+}
