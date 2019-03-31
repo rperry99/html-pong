@@ -20,6 +20,10 @@ let comPaddleY = 250;
 let comPaddleHeight = 100;
 let comPaddleWidth = 10;
 
+//Scores
+playerScore = 0;
+comScore = 0;
+
 window.onload = () => {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
@@ -53,6 +57,10 @@ function drawAssets() {
     100,
     themeColor
   );
+
+  //Score display
+  canvasContext.fillText(playerScore, 100, 100);
+  canvasContext.fillText(comScore, canvas.width - 100, 100);
 }
 
 //Template function to draw rectangles/squares
@@ -70,15 +78,29 @@ function drawCircle(x, y, color) {
   canvasContext.fill();
 }
 
+function computerAI() {
+  let comPaddleYCenter = comPaddleY + comPaddleHeight / 2;
+  if (comPaddleYCenter < ballY - 35) {
+    comPaddleY += 6;
+  } else if (comPaddleYCenter > ballY + 35) {
+    comPaddleY -= 6;
+  }
+}
+
 //Moves the movable pieces to the game
 function moveAssets() {
-  ballX = ballX + ballSpeedX;
-  ballY = ballY + ballSpeedY;
+  //Computer AI
+  computerAI();
+
+  //Rebounding
+  ballX += ballSpeedX;
+  ballY += ballSpeedY;
   if (ballX > canvas.width - ballWidth / 2) {
     if (ballY > comPaddleY && ballY < comPaddleY + comPaddleHeight) {
       ballSpeedX = -ballSpeedX;
     } else {
       resetBall();
+      playerScore++;
     }
   }
   if (ballX < ballWidth / 2) {
@@ -86,6 +108,7 @@ function moveAssets() {
       ballSpeedX = -ballSpeedX;
     } else {
       resetBall();
+      comScore++;
     }
   }
   if (ballY >= canvas.height - ballWidth / 2 || ballY <= ballWidth / 2) {
