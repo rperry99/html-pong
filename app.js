@@ -6,9 +6,11 @@ let themeColor = "#bada55";
 let ballWidth = 8;
 let ballHeight = 10;
 let ballX = 50;
-let ballSpeedX = 5;
 let ballY = 50;
-let ballSpeedY = 4;
+const BALL_SPEED_X = 10;
+let ballSpeedX = BALL_SPEED_X;
+const BALL_SPEED_Y = 4;
+let ballSpeedY = BALL_SPEED_Y;
 
 //Player Paddle Variables
 let playerPaddleY = 250;
@@ -23,7 +25,7 @@ let comPaddleWidth = 10;
 //Scores & Game End
 let playerScore = 0;
 let comScore = 0;
-const WINNING_SCORE = 1;
+const WINNING_SCORE = 90;
 let showingWinner = false;
 
 window.onload = () => {
@@ -31,8 +33,8 @@ window.onload = () => {
   canvasContext = canvas.getContext("2d");
   let fps = 30;
   setInterval(() => {
-    drawAssets();
     moveAssets();
+    drawAssets();
   }, 1000 / fps);
   canvas.addEventListener("mousemove", event => {
     let mousePos = mousePosition(event);
@@ -119,8 +121,6 @@ function computerAI() {
 function moveAssets() {
   //Did someone win?
   if (showingWinner) {
-    canvasContext.fillStyle(themeColor);
-    canvasContent.fillText("click to continue");
     return;
   }
 
@@ -133,8 +133,8 @@ function moveAssets() {
   if (ballX > canvas.width - ballWidth / 2) {
     if (ballY > comPaddleY && ballY < comPaddleY + comPaddleHeight) {
       ballSpeedX = -ballSpeedX;
-      var deltaY = ballY - (playerPaddleY + playerPaddleHeight / 2);
-      ballSpeedY = deltaY * 0.05;
+      var deltaY = ballY - (comPaddleY + comPaddleHeight / 2);
+      ballSpeedY = deltaY * 0.35;
     } else {
       playerScore++;
       resetBall();
@@ -143,8 +143,8 @@ function moveAssets() {
   if (ballX < ballWidth / 2) {
     if (ballY > playerPaddleY && ballY < playerPaddleY + playerPaddleHeight) {
       ballSpeedX = -ballSpeedX;
-      var deltaY = ballY - (comPaddleY + comPaddleHeight / 2);
-      ballSpeedY = deltaY * 0.05;
+      var deltaY = ballY - (playerPaddleY + playerPaddleHeight / 2);
+      ballSpeedY = deltaY * 0.35;
     } else {
       comScore++;
       resetBall();
@@ -172,8 +172,8 @@ function resetBall() {
   if (playerScore >= WINNING_SCORE || comScore >= WINNING_SCORE) {
     showingWinner = true;
   }
-  ballSpeedX = -ballSpeedX;
-  ballSpeedY = -ballSpeedY;
   ballX = canvas.width / 2;
-  ballY - canvas.height / 2;
+  ballY = canvas.height / 2;
+  ballSpeedX = BALL_SPEED_X;
+  ballSpeedY = BALL_SPEED_Y;
 }
