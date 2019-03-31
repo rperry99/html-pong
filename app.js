@@ -20,10 +20,11 @@ let comPaddleY = 250;
 let comPaddleHeight = 100;
 let comPaddleWidth = 10;
 
-//Scores
+//Scores & Game End
 let playerScore = 0;
 let comScore = 0;
-const WINNING_SCORE = 3;
+const WINNING_SCORE = 1;
+let showingWinner = false;
 
 window.onload = () => {
   canvas = document.getElementById("gameCanvas");
@@ -37,12 +38,28 @@ window.onload = () => {
     let mousePos = mousePosition(event);
     playerPaddleY = mousePos.y - playerPaddleHeight / 2;
   });
+  canvas.addEventListener("mousedown", event => {
+    if (showingWinner) {
+      playerScore = 0;
+      comScore = 0;
+      showingWinner = false;
+    }
+  });
 };
 
 //Draws the pieces to the game
 function drawAssets() {
   //Canvas
   drawRectangle(0, 0, canvas.width, canvas.height, backgroundTheme);
+
+  if (showingWinner) {
+    canvasContext.fillStyle = themeColor;
+    playerScore >= WINNING_SCORE
+      ? canvasContext.fillText("Player Wins!", 350, 200)
+      : canvasContext.fillText("Computer Wins!", 350, 200);
+    canvasContext.fillText("click to continue", 350, 500);
+    return;
+  }
 
   //Ball
   drawCircle(ballX, ballY, themeColor);
@@ -90,6 +107,13 @@ function computerAI() {
 
 //Moves the movable pieces to the game
 function moveAssets() {
+  //Did someone win?
+  if (showingWinner) {
+    canvasContext.fillStyle(themeColor);
+    canvasContent.fillText("click to continue");
+    return;
+  }
+
   //Computer AI
   computerAI();
 
@@ -136,8 +160,7 @@ function mousePosition(event) {
 //Function to Reset the ball when it misses the paddle
 function resetBall() {
   if (playerScore >= WINNING_SCORE || comScore >= WINNING_SCORE) {
-    playerScore = 0;
-    comScore = 0;
+    showingWinner = true;
   }
   ballSpeedX = -ballSpeedX;
   ballSpeedY = -ballSpeedY;
