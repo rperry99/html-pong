@@ -61,6 +61,9 @@ function drawAssets() {
     return;
   }
 
+  //Net
+  drawNet();
+
   //Ball
   drawCircle(ballX, ballY, themeColor);
 
@@ -79,6 +82,13 @@ function drawAssets() {
   //Score display
   canvasContext.fillText(playerScore, 100, 100);
   canvasContext.fillText(comScore, canvas.width - 100, 100);
+}
+
+//Template function to draw the net
+function drawNet() {
+  for (let i = 0; i < canvas.height; i += 40) {
+    drawRectangle(canvas.width / 2 - 1, i, 2, 20, themeColor);
+  }
 }
 
 //Template function to draw rectangles/squares
