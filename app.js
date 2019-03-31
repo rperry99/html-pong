@@ -13,6 +13,12 @@ let ballSpeedY = 4;
 //Player Paddle Variables
 let playerPaddleY = 250;
 let playerPaddleHeight = 100;
+let playerPaddleWidth = 10;
+
+//Computer Paddle Variables
+let comPaddleY = 250;
+let comPaddleHeight = 100;
+let comPaddleWidth = 10;
 
 window.onload = () => {
   canvas = document.getElementById("gameCanvas");
@@ -37,7 +43,16 @@ function drawAssets() {
   drawCircle(ballX, ballY, themeColor);
 
   //Player (left) Paddle
-  drawRectangle(0, playerPaddleY, 10, 100, themeColor);
+  drawRectangle(0, playerPaddleY, playerPaddleWidth, 100, themeColor);
+
+  //Computer (right) Paddle
+  drawRectangle(
+    canvas.width - comPaddleWidth,
+    comPaddleY,
+    comPaddleWidth,
+    100,
+    themeColor
+  );
 }
 
 //Template function to draw rectangles/squares
@@ -60,7 +75,11 @@ function moveAssets() {
   ballX = ballX + ballSpeedX;
   ballY = ballY + ballSpeedY;
   if (ballX > canvas.width - ballWidth / 2) {
-    ballSpeedX = -ballSpeedX;
+    if (ballY > comPaddleY && ballY < comPaddleY + comPaddleHeight) {
+      ballSpeedX = -ballSpeedX;
+    } else {
+      resetBall();
+    }
   }
   if (ballX < ballWidth / 2) {
     if (ballY > playerPaddleY && ballY < playerPaddleY + playerPaddleHeight) {
