@@ -12,3 +12,7 @@ canvas {
   border-radius: 5px;
   margin: 0 auto;
 }
+
+canvas:hover {
+  cursor: none;
+}

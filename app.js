@@ -10,6 +10,10 @@ let ballSpeedX = 5;
 let ballY = 50;
 let ballSpeedY = 4;
 
+//Player Paddle Variables
+let playerPaddleY = 250;
+let playerPaddleHeight = 100;
+
 window.onload = () => {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
@@ -18,6 +22,10 @@ window.onload = () => {
     drawAssets();
     moveAssets();
   }, 1000 / fps);
+  canvas.addEventListener("mousemove", event => {
+    let mousePos = mousePosition(event);
+    playerPaddleY = mousePos.y - playerPaddleHeight / 2;
+  });
 };
 
 //Draws the pieces to the game
@@ -28,8 +36,8 @@ function drawAssets() {
   //Ball
   drawCircle(ballX, ballY, themeColor);
 
-  //Left Paddle
-  drawRectangle(10, 210, 10, 100, themeColor);
+  //Player (left) Paddle
+  drawRectangle(20, playerPaddleY, 10, 100, themeColor);
 }
 
 //Template function to draw rectangles/squares
@@ -57,4 +65,16 @@ function moveAssets() {
   if (ballY >= canvas.height - ballWidth / 2 || ballY <= ballWidth / 2) {
     ballSpeedY = -ballSpeedY;
   }
+}
+
+//Function to find mouse position
+function mousePosition(event) {
+  let rect = canvas.getBoundingClientRect();
+  let root = document.documentElement;
+  let mouseX = event.clientX - rect.left - root.scrollLeft;
+  let mouseY = event.clientY - rect.top - root.scrollTop;
+  return {
+    x: mouseX,
+    y: mouseY
+  };
 }
