@@ -21,16 +21,19 @@ window.onload = () => {
 //Draws the pieces to the game
 function drawAssets() {
   //Canvas
-  canvasContext.fillStyle = backgroundTheme;
-  canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+  drawShape(0, 0, canvas.width, canvas.height, backgroundTheme);
 
   //Ball
-  canvasContext.fillStyle = themeColor;
-  canvasContext.fillRect(ballX, 200, ballWidth, ballHeight);
+  drawShape(ballX, 200, ballWidth, ballHeight, themeColor);
 
   //Left Paddle
-  canvasContext.fillStyle = themeColor;
-  canvasContext.fillRect(10, 210, 10, 100);
+  drawShape(10, 210, 10, 100, themeColor);
+}
+
+//Template function to draw shapes
+function drawShape(x, y, width, height, color) {
+  canvasContext.fillStyle = color;
+  canvasContext.fillRect(x, y, width, height);
 }
 
 //Moves the movable pieces to the game
