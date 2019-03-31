@@ -7,6 +7,8 @@ let ballWidth = 8;
 let ballHeight = 10;
 let ballX = 50;
 let ballSpeedX = 5;
+let ballY = 50;
+let ballSpeedY = 4;
 
 window.onload = () => {
   canvas = document.getElementById("gameCanvas");
@@ -24,7 +26,7 @@ function drawAssets() {
   drawRectangle(0, 0, canvas.width, canvas.height, backgroundTheme);
 
   //Ball
-  drawCircle(ballX, 150, themeColor);
+  drawCircle(ballX, ballY, themeColor);
 
   //Left Paddle
   drawRectangle(10, 210, 10, 100, themeColor);
@@ -48,7 +50,11 @@ function drawCircle(x, y, color) {
 //Moves the movable pieces to the game
 function moveAssets() {
   ballX = ballX + ballSpeedX;
+  ballY = ballY + ballSpeedY;
   if (ballX >= canvas.width - ballWidth / 2 || ballX <= ballWidth / 2) {
     ballSpeedX = -ballSpeedX;
+  }
+  if (ballY >= canvas.height - ballWidth / 2 || ballY <= ballWidth / 2) {
+    ballSpeedY = -ballSpeedY;
   }
 }
