@@ -24,7 +24,11 @@ function drawAssets() {
   drawShape(0, 0, canvas.width, canvas.height, backgroundTheme);
 
   //Ball
-  drawShape(ballX, 200, ballWidth, ballHeight, themeColor);
+  canvasContext.fillStyle = themeColor;
+  canvasContext.beginPath();
+  //Arc Paramters (xPos, yPos, radius (size), angle, radian, clockwise(T) || CounterClockwise(F))
+  canvasContext.arc(ballX, 100, 5, 0, Math.PI * 2, true);
+  canvasContext.fill();
 
   //Left Paddle
   drawShape(10, 210, 10, 100, themeColor);
