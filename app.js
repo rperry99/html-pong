@@ -21,8 +21,9 @@ let comPaddleHeight = 100;
 let comPaddleWidth = 10;
 
 //Scores
-playerScore = 0;
-comScore = 0;
+let playerScore = 0;
+let comScore = 0;
+const WINNING_SCORE = 3;
 
 window.onload = () => {
   canvas = document.getElementById("gameCanvas");
@@ -98,17 +99,21 @@ function moveAssets() {
   if (ballX > canvas.width - ballWidth / 2) {
     if (ballY > comPaddleY && ballY < comPaddleY + comPaddleHeight) {
       ballSpeedX = -ballSpeedX;
+      var deltaY = ballY - (playerPaddleY + playerPaddleHeight / 2);
+      ballSpeedY = deltaY * 0.05;
     } else {
-      resetBall();
       playerScore++;
+      resetBall();
     }
   }
   if (ballX < ballWidth / 2) {
     if (ballY > playerPaddleY && ballY < playerPaddleY + playerPaddleHeight) {
       ballSpeedX = -ballSpeedX;
+      var deltaY = ballY - (comPaddleY + comPaddleHeight / 2);
+      ballSpeedY = deltaY * 0.05;
     } else {
-      resetBall();
       comScore++;
+      resetBall();
     }
   }
   if (ballY >= canvas.height - ballWidth / 2 || ballY <= ballWidth / 2) {
@@ -130,6 +135,10 @@ function mousePosition(event) {
 
 //Function to Reset the ball when it misses the paddle
 function resetBall() {
+  if (playerScore >= WINNING_SCORE || comScore >= WINNING_SCORE) {
+    playerScore = 0;
+    comScore = 0;
+  }
   ballSpeedX = -ballSpeedX;
   ballSpeedY = -ballSpeedY;
   ballX = canvas.width / 2;
