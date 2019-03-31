@@ -25,7 +25,7 @@ let comPaddleWidth = 10;
 //Scores & Game End
 let playerScore = 0;
 let comScore = 0;
-const WINNING_SCORE = 90;
+const WINNING_SCORE = 5;
 let showingWinner = false;
 
 window.onload = () => {
