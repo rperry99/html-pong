@@ -37,7 +37,7 @@ function drawAssets() {
   drawCircle(ballX, ballY, themeColor);
 
   //Player (left) Paddle
-  drawRectangle(20, playerPaddleY, 10, 100, themeColor);
+  drawRectangle(0, playerPaddleY, 10, 100, themeColor);
 }
 
 //Template function to draw rectangles/squares
@@ -59,8 +59,15 @@ function drawCircle(x, y, color) {
 function moveAssets() {
   ballX = ballX + ballSpeedX;
   ballY = ballY + ballSpeedY;
-  if (ballX >= canvas.width - ballWidth / 2 || ballX <= ballWidth / 2) {
+  if (ballX > canvas.width - ballWidth / 2) {
     ballSpeedX = -ballSpeedX;
+  }
+  if (ballX < ballWidth / 2) {
+    if (ballY > playerPaddleY && ballY < playerPaddleY + playerPaddleHeight) {
+      ballSpeedX = -ballSpeedX;
+    } else {
+      resetBall();
+    }
   }
   if (ballY >= canvas.height - ballWidth / 2 || ballY <= ballWidth / 2) {
     ballSpeedY = -ballSpeedY;
@@ -77,4 +84,12 @@ function mousePosition(event) {
     x: mouseX,
     y: mouseY
   };
+}
+
+//Function to Reset the ball when it misses the paddle
+function resetBall() {
+  ballSpeedX = -ballSpeedX;
+  ballSpeedY = -ballSpeedY;
+  ballX = canvas.width / 2;
+  ballY - canvas.height / 2;
 }
